@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liquor Cabinet Inventory</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .input-group {
+        margin-bottom: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="input-group">
+        <label for="product_type">Product Type:</label>
+        <select id="product_type" name="product_type" onchange="toggleFields()">
+            <option value="beer">Beer</option>
+            <option value="wine">Wine</option>
+            <option value="liquor">Liquor</option>
+        </select>
+    </div>
+    <div class="input-group">
+        <label for="store_name">Store Name:</label>
+        <input type="text" id="store_name" name="store_name">
+    </div>
+    <div class="input-group">
+        <label for="liquor_name">Liquor Name:</label>
+        <input type="text" id="liquor_name" name="liquor_name">
+    </div>
+    <div class="input-group">
+        <label for="container_size">Container Size (ml):</label>
+        <input type="number" id="container_size" name="container_size" min="1" step="1">
+    </div>
+    <div class="input-group">
+        <label for="price">Price ($):</label>
+        <input type="number" id="price" name="price" min="0" step="0.01">
+    </div>
+    <div class="input-group">
+        <label for="alcohol_percent">Alcohol Percent:</label>
+        <input type="number" id="alcohol_percent" name="alcohol_percent" min="0" max="100" step="1">
+    </div>
+    <div class="input-group" id="container_type_group">
+        <label for="container_type">Container Type:</label>
+        <input type="text" id="container_type" name="container_type">
+    </div>
+    <div class="input-group" id="beer_style_group">
+        <label for="beer_style">Beer Style:</label>
+        <input type="text" id="beer_style" name="beer_style">
+    </div>
+    <div class="input-group" id="wine_region_group">
+        <label for="wine_region">Wine Region:</label>
+        <input type="text" id="wine_region" name="wine_region">
+    </div>
+    <div class="input-group" id="grape_variety_group">
+        <label for="grape_variety">Grape Variety:</label>
+        <input type="text" id="grape_variety" name="grape_variety">
+    </div>
+    <div class="input-group" id="liquor_type_group">
+        <label for="liquor_type">Liquor Type:</label>
+        <input type="text" id="liquor_type" name="liquor_type">
+    </div>
+    <div class="input-group">
+        <input type="submit" value="Submit">
+    </div>
+</div>
+
+<script>
+function toggleFields() {
+    var productType = document.getElementById("product_type").value;
+    var beerStyleGroup = document.getElementById("beer_style_group");
+    var containerTypeGroup = document.getElementById("container_type_group");
+    var wineRegionGroup = document.getElementById("wine_region_group");
+    var grapeVarietyGroup = document.getElementById("grape_variety_group");
+    var liquorTypeGroup = document.getElementById("liquor_type_group");
+    var containerSizeLabel = document.querySelector('label[for="container_size"]');
+    var containerSizeInput = document.getElementById("container_size");
+
+    // Reset all fields to enabled
+    beerStyleGroup.style.display = "block";
+    wineRegionGroup.style.display = "block";
+    grapeVarietyGroup.style.display = "block";
+    liquorTypeGroup.style.display = "block";
+    containerTypeGroup.style.display = "block";
+
+    // Disable fields based on product type
+    if (productType === "beer") {
+        wineRegionGroup.style.display = "none";
+        grapeVarietyGroup.style.display = "none";
+        liquorTypeGroup.style.display = "none";
+        containerSizeLabel.textContent = "Container Size (oz):"
+    } else if (productType === "wine") {
+        beerStyleGroup.style.display = "none";
+        liquorTypeGroup.style.display = "none";
+        containerTypeGroup.style.display = "none";
+        containerSizeLabel.textContent = "Container Size (ml):"
+    } else if (productType === "liquor") {
+        beerStyleGroup.style.display = "none";
+        wineRegionGroup.style.display = "none";
+        grapeVarietyGroup.style.display = "none";
+        containerTypeGroup.style.display = "none";
+        containerSizeLabel.textContent = "Container Size (ml):"
+    }
+}
+// Initial call to set fields based on default value of product type
+toggleFields();
+</script>
+
+</body>
+</html>
